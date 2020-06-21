@@ -1,0 +1,15 @@
+body {
+    padding: 20px;
+}
+
+.blogs {
+    padding-top: 20px;
+}
+
+.message {
+    padding-top: 20px;
+}
+
+.message-success {
+    color: greenyellow;
+}

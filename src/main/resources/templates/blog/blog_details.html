@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <title th:text="${title}">Blog's title</title>
+</head>
+
+<body>
+    <div class="blog-menu">
+        <a class="btn btn-primary" href="/blog">Back to blogs list</a>
+    </div>
+    <div th:if="${disableBlog}" class="blogs">
+        <p class="text-warning">Are you sure?</p>
+        <form action="/blog/delete" method="post">
+            <input type="hidden" name="id" th:value="${blog.id}">
+            <input class="btn btn-danger" type="submit" value="Delete">
+        </form>
+    </div>
+    <div class="blogs">
+        <h3 th:text="${blog.title}">Blog's title</h3>
+        <p th:text="${blog.content}">Blog's content</p>
+    </div>
+</body>
+
+</html>
