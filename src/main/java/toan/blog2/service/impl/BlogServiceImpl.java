@@ -1,6 +1,8 @@
 package toan.blog2.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import toan.blog2.model.Blog;
 import toan.blog2.repository.BlogRepository;
@@ -13,8 +15,8 @@ public class BlogServiceImpl implements BlogService {
     private BlogRepository blogRepository;
 
     @Override
-    public Iterable<Blog> findAll() {
-        return blogRepository.findAllByStatusIsTrue();
+    public Page<Blog> findAllBlogAvailable(Pageable pageable) {
+        return blogRepository.findAllByStatusIsTrue(pageable);
     }
 
     @Override

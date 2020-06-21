@@ -3,9 +3,12 @@ package toan.blog2.model;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -21,7 +24,7 @@ public class Blog {
     private String title;
 
     @NotBlank
-    @Column(name = "content", columnDefinition = "LONGTEXT")
+    @Column(name = "content")
     private String content;
 
     @Column(name = "created_date")
@@ -29,6 +32,10 @@ public class Blog {
 
     @Column(name = "status")
     private Boolean status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Blog() {
         createdDate = LocalDate.now();
@@ -74,4 +81,13 @@ public class Blog {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+    
 }

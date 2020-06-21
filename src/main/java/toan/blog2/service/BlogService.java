@@ -1,9 +1,11 @@
 package toan.blog2.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import toan.blog2.model.Blog;
 
 public interface BlogService {
-    Iterable<Blog> findAll();
+    Page<Blog> findAllBlogAvailable(Pageable pageable);
 
     void save(Blog blog);
 

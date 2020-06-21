@@ -21,7 +21,8 @@
             <thead class="thead-dark">
                 <tr>
                     <th>#</th>
-                    <th class="w-75">Blog's title</th>
+                    <th class="w-50">Blog's title</th>
+                    <th>Category</th>
                     <th>Created date</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -35,12 +36,18 @@
                             Blog's title
                         </a>
                     </td>
+                    <td th:text="${blog.category.categoryName}">Category</td>
                     <td th:text="${blog.createdDate}">Created date</td>
                     <td><a th:href="@{/blog/edit/__${blog.id}__}">Edit</a></td>
                     <td><a class="text-danger" th:href="@{/blog/delete/__${blog.id}__}">Delete</a></td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="blogs">
+        <a th:href="@{'/blog'(page=${blogs.number})}" th:if="${blogs.hasPrevious()}">Previous</a>
+        <span th:text="${blogs.number + 1}"></span>/<span th:text="${blogs.totalPages}"></span>
+        <a th:href="@{'/blog'(page=${blogs.number + 2})}" th:if="${blogs.hasNext()}">Next</a>
     </div>
 </body>
 
