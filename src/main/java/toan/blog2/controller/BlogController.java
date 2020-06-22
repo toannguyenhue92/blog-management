@@ -36,8 +36,7 @@ public class BlogController {
     }
 
     @GetMapping("")
-    public String getBlogList(Model model,
-            @PageableDefault(size = 5) Pageable pageable) {
+    public String getBlogList(Model model, @PageableDefault(size = 5) Pageable pageable) {
         Page<Blog> blogs = blogService.findAllBlogAvailable(pageable);
         model.addAttribute("blogs", blogs);
         return "blog/home";
@@ -50,9 +49,8 @@ public class BlogController {
     }
 
     @PostMapping("/create")
-    public String saveBlog(@Valid @ModelAttribute(name = "blog") Blog blog,
-            @RequestParam("category-id") Integer categoryId,
-            BindingResult bindingResult,
+    public String saveBlog(@RequestParam("category-id") Integer categoryId,
+            @Valid @ModelAttribute(name = "blog") Blog blog, BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "blog/new_blog";
@@ -68,8 +66,7 @@ public class BlogController {
     }
 
     @GetMapping("/{id}")
-    public String getBlogDetails(@PathVariable(name = "id") Integer id,
-            Model model) {
+    public String getBlogDetails(@PathVariable(name = "id") Integer id, Model model) {
         Blog blog = blogService.findById(id);
         if (blog == null) {
             return "blog/404";
@@ -80,8 +77,7 @@ public class BlogController {
     }
 
     @GetMapping("/edit/{id}")
-    public String getFormBlogEdit(@PathVariable(name = "id") Integer id,
-            Model model) {
+    public String getFormBlogEdit(@PathVariable(name = "id") Integer id, Model model) {
         Blog blog = blogService.findById(id);
         if (blog == null) {
             return "blog/404";
@@ -92,8 +88,7 @@ public class BlogController {
 
     @PostMapping("/edit")
     public String updateBlog(@Valid @ModelAttribute(name = "blog") Blog blog,
-            @RequestParam("category-id") Integer categoryId,
-            BindingResult bindingResult,
+            BindingResult bindingResult, @RequestParam("category-id") Integer categoryId,
             RedirectAttributes redirectAttributes) {
         Category category = categoryService.findById(categoryId);
         if (category == null) {
@@ -101,14 +96,12 @@ public class BlogController {
         }
         blog.setCategory(category);
         blogService.save(blog);
-        redirectAttributes.addFlashAttribute("message",
-                "Updated successfully!");
+        redirectAttributes.addFlashAttribute("message", "Updated successfully!");
         return "redirect:/blog";
     }
 
     @GetMapping("/delete/{id}")
-    public String getFormDeleteBlog(@PathVariable(name = "id") Integer id,
-            Model model) {
+    public String getFormDeleteBlog(@PathVariable(name = "id") Integer id, Model model) {
         Blog blog = blogService.findById(id);
         if (blog == null) {
             return "blog/404";
@@ -127,8 +120,7 @@ public class BlogController {
         }
         blog.setStatus(false);
         blogService.save(blog);
-        redirectAttributes.addFlashAttribute("message",
-                "Deleted successfully!");
+        redirectAttributes.addFlashAttribute("message", "Deleted successfully!");
         return "redirect:/blog";
     }
 }
